@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🚀 ابنِ صاروخك... وأوصله للمدار</title>
+  <title>🚀 ابنِ صاروخك… وأوصله للمدار | نادي العلوم - مسار الفيزياء</title>
   <style>
     :root {
-      --bg-dark: #0a0e1a;
-      --navy: #131b2e;
+      --bg-dark: #070a13;
+      --navy: #0f172a;
       --turquoise: #00f2fe;
       --turquoise-glow: rgba(0, 242, 254, 0.4);
-      --gold: #ffd700;
+      --gold: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.3);
       --white: #ffffff;
-      --correct: #00e676;
-      --wrong: #ff1744;
+      --correct: #10b981;
+      --wrong: #ef4444;
     }
 
     * {
@@ -34,14 +35,14 @@
       position: relative;
     }
 
-    /* خلفية الفضاء والنجوم Dynamic Stars Background */
+    /* خلفية الفضاء والنجوم */
     .space-bg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at center, #1a2639 0%, #0a0e1a 100%);
+      background: radial-gradient(circle at center, #111827 0%, #030712 100%);
       z-index: 0;
     }
 
@@ -58,22 +59,37 @@
       50% { opacity: 1; transform: scale(1.2); }
     }
 
-    /* الحاوية الرئيسية Game Container */
+    /* كوكب الأرض في الخلفية السفلية */
+    .earth-bottom {
+      position: absolute;
+      bottom: -180px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(circle at top, #1d4ed8 0%, #0f172a 80%);
+      border-radius: 50% 50% 0 0;
+      box-shadow: 0 -10px 40px rgba(0, 242, 254, 0.2);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* الحاوية الرئيسية */
     .game-container {
       position: relative;
       z-index: 10;
       width: 90%;
       max-width: 680px;
-      background: rgba(19, 27, 46, 0.9);
+      background: rgba(15, 23, 42, 0.88);
       border: 2px solid rgba(0, 242, 254, 0.25);
-      border-radius: 20px;
+      border-radius: 24px;
       padding: 25px 30px;
-      box-shadow: 0 0 35px rgba(0, 242, 254, 0.15), inset 0 0 15px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 0 40px rgba(0, 242, 254, 0.15);
+      backdrop-filter: blur(12px);
       text-align: center;
     }
 
-    /* رأس الصفحة والشعار Header & Logos */
+    /* الترويسة والشعار */
     .header-branding {
       margin-bottom: 15px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -81,19 +97,20 @@
     }
 
     .uqu-logo {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: bold;
       color: var(--gold);
       letter-spacing: 0.5px;
     }
 
     .club-tag {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--turquoise);
       margin-top: 3px;
+      font-weight: 600;
     }
 
-    /* الشاشات Screen Management */
+    /* الشاشات */
     .screen {
       display: none;
       animation: fadeIn 0.4s ease-in-out forwards;
@@ -110,7 +127,7 @@
 
     .title {
       font-size: 2rem;
-      margin: 10px 0;
+      margin: 8px 0;
       color: var(--turquoise);
       text-shadow: 0 0 10px var(--turquoise-glow);
     }
@@ -118,17 +135,17 @@
     .subtitle {
       font-size: 1.1rem;
       margin-bottom: 20px;
-      color: #cbd5e1;
+      color: #94a3b8;
     }
 
-    /* مسرح البناء البصري للصاروخ Rocket Builder Stage Visualizer */
+    /* مسرح بناء وتفاعل الصاروخ Visual Stage */
     .visualizer-stage {
       position: relative;
-      height: 160px;
-      background: rgba(10, 14, 26, 0.7);
-      border-radius: 15px;
+      height: 180px;
+      background: rgba(3, 7, 18, 0.6);
+      border-radius: 16px;
       border: 1px dashed rgba(0, 242, 254, 0.3);
-      margin: 15px 0 20px 0;
+      margin: 15px 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -140,81 +157,76 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: all 0.5s ease;
+      transition: all 0.6s ease;
     }
 
-    /* أجزاء الصاروخ Rocket Parts */
+    /* عناصر الصاروخ البصرية */
     .part-nose {
-      font-size: 2.2rem;
+      font-size: 2rem;
       opacity: 0.2;
       transition: all 0.5s ease;
       filter: grayscale(1);
     }
     .part-body {
-      font-size: 2rem;
+      font-size: 2.2rem;
       opacity: 0.2;
       transition: all 0.5s ease;
       filter: grayscale(1);
     }
     .part-engine {
-      font-size: 2rem;
+      font-size: 1.8rem;
       opacity: 0.2;
       transition: all 0.5s ease;
       filter: grayscale(1);
     }
     .part-fire {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       opacity: 0;
       transition: all 0.5s ease;
-      transform: translateY(-10px);
+      animation: flame 0.2s infinite alternate;
     }
 
-    /* تحويل الأجزاء إلى الحالة المكتملة */
+    @keyframes flame {
+      0% { transform: scale(0.9); }
+      100% { transform: scale(1.1); }
+    }
+
     .part-active {
       opacity: 1 !important;
       filter: grayscale(0) !important;
-      transform: scale(1.1);
     }
 
-    /* أنيميشن حركة الصاروخ والغازات */
-    .launching {
-      animation: launchUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    @keyframes launchUp {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-      100% { transform: translateY(-180px); opacity: 0; }
-    }
-
+    /* سهم الجاذبية */
     .gravity-arrow {
       position: absolute;
-      bottom: 10px;
-      left: 20px;
-      font-size: 1.5rem;
+      right: 25px;
+      top: 30px;
+      font-size: 1.2rem;
       color: var(--wrong);
+      font-weight: bold;
       display: none;
-      animation: bounceDown 1s infinite;
+      animation: pullDown 1s infinite alternate;
     }
 
-    @keyframes bounceDown {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
+    @keyframes pullDown {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(10px); }
     }
 
+    /* المدار المكتمل */
     .orbit-ring {
       position: absolute;
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border: 2px dashed var(--turquoise);
       border-radius: 50%;
       display: none;
-      animation: spin 8s linear infinite;
+      animation: spin 6s linear infinite;
     }
 
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* خيارات الأسئلة Options Grid */
+    /* الخيارات والفيزياء */
     .options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -249,7 +261,7 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--turquoise), #00a8ff);
+      background: linear-gradient(135deg, var(--turquoise), #0284c7);
       color: #000;
       border: none;
       font-size: 1.15rem;
@@ -257,22 +269,22 @@
       border-radius: 30px;
       font-weight: bold;
       box-shadow: 0 0 15px var(--turquoise-glow);
-      margin-top: 10px;
+      cursor: pointer;
     }
 
     .btn-primary:hover {
-      background: linear-gradient(135deg, #33f5ff, #1ab1ff);
+      background: linear-gradient(135deg, #38bdf8, #0369a1);
       transform: scale(1.03);
     }
 
     .btn.correct {
-      background: rgba(0, 230, 118, 0.2) !important;
+      background: rgba(16, 185, 129, 0.2) !important;
       border-color: var(--correct) !important;
       color: var(--correct) !important;
     }
 
     .btn.wrong {
-      background: rgba(255, 23, 68, 0.2) !important;
+      background: rgba(239, 68, 68, 0.2) !important;
       border-color: var(--wrong) !important;
       animation: shake 0.4s ease;
     }
@@ -293,13 +305,13 @@
     .feedback.correct-text { color: var(--correct); }
     .feedback.wrong-text { color: var(--wrong); }
 
-    /* شاشة النهاية Summary Badges */
+    /* البطاقة النهائية */
     .summary-card {
       background: rgba(255, 255, 255, 0.03);
-      border-radius: 15px;
+      border-radius: 16px;
       padding: 18px;
       margin: 15px 0;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid var(--gold-glow);
     }
 
     .badge-list {
@@ -311,7 +323,7 @@
     }
 
     .badge {
-      background: rgba(255, 215, 0, 0.1);
+      background: rgba(245, 158, 11, 0.1);
       border: 1px solid var(--gold);
       color: var(--gold);
       padding: 6px 14px;
@@ -322,13 +334,14 @@
 </head>
 <body>
 
-  <!-- خلفية الفضاء -->
+  <!-- الفضاء وكوكب الأرض -->
   <div class="space-bg" id="spaceBg"></div>
+  <div class="earth-bottom"></div>
 
-  <!-- حاوية اللعبة الرئيسية -->
+  <!-- الحاوية الأساسية -->
   <div class="game-container">
     
-    <!-- الشعار والترويسة -->
+    <!-- الترويسة والشعار -->
     <div class="header-branding">
       <div class="uqu-logo">جامعة أم القرى</div>
       <div class="club-tag">نادي العلوم | مسار الفيزياء</div>
@@ -337,17 +350,17 @@
     <!-- 1. شاشة البداية -->
     <div id="screen-1" class="screen active">
       <h1 class="title">🚀 ابنِ صاروخك</h1>
-      <h2 style="color: var(--gold); font-size: 1.4rem; margin-bottom: 8px;">وأوصله إلى المدار!</h2>
+      <h2 style="color: var(--gold); font-size: 1.3rem; margin-bottom: 6px;">وأوصله إلى المدار!</h2>
       <p class="subtitle">مهمة تفاعلية في فيزياء الصواريخ</p>
       
       <div class="visualizer-stage">
-        <div style="font-size: 3rem; opacity: 0.5;">🚀</div>
+        <div style="font-size: 3.5rem; opacity: 0.3; filter: grayscale(1);">🚀</div>
       </div>
 
-      <button class="btn btn-primary" onclick="goToScreen(2)">ابدأ المهمة 🚀</button>
+      <button class="btn btn-primary" onclick="goToScreen(2)" style="margin-top: 10px;">ابدأ المهمة 🚀</button>
     </div>
 
-    <!-- مسرح بناء الصاروخ المشترك للمراحل -->
+    <!-- المسرح التفاعلي المشترك للمراحل -->
     <div id="interactive-stage" style="display: none;">
       <div class="visualizer-stage" id="stageBox">
         <div class="orbit-ring" id="orbitRing"></div>
@@ -356,8 +369,8 @@
         <div class="rocket-assembly" id="rocketAssembly">
           <div class="part-nose" id="partNose">🔺</div>
           <div class="part-body" id="partBody">🚀</div>
-          <div class="part-engine" id="partEngine">⚙️</div>
-          <div class="part-fire" id="partFire">🔥🔥</div>
+          <div class="part-engine" id="partEngine">⚙️️</div>
+          <div class="part-fire" id="partFire">🔥</div>
         </div>
       </div>
     </div>
@@ -372,7 +385,7 @@
       <button class="btn btn-primary" id="next-2" style="display:none; margin: 0 auto;" onclick="goToScreen(3)">التالي →</button>
     </div>
 
-    <!-- 3. المرحلة الثانية — نظام الدفع -->
+    <!-- 3. المرحلة الثانية — أضف نظام الدفع -->
     <div id="screen-3" class="screen">
       <h3 style="color: var(--turquoise); margin-bottom: 5px;">🔥 المرحلة الثانية</h3>
       <p class="subtitle">الصاروخ جاهز… لكن كيف سنجعله ينطلق؟ اختر المكوّن المسؤول عن إنتاج قوة الدفع.</p>
@@ -382,9 +395,9 @@
       <button class="btn btn-primary" id="next-3" style="display:none; margin: 0 auto;" onclick="goToScreen(4)">التالي →</button>
     </div>
 
-    <!-- 4. المرحلة الثالثة — قانون نيوتن الثالث -->
+    <!-- 4. المرحلة الثالثة — لماذا يتحرك الصاروخ؟ -->
     <div id="screen-4" class="screen">
-      <h3 style="color: var(--turquoise); margin-bottom: 5px;">⚛️️ المرحلة الثالثة</h3>
+      <h3 style="color: var(--turquoise); margin-bottom: 5px;">⚛️ المرحلة الثالثة</h3>
       <p class="subtitle">تندفع الغازات إلى الخلف، فيتحرك الصاروخ إلى الأمام. ما القانون الذي يفسر ذلك؟</p>
       
       <div class="options-grid" id="opts-4"></div>
@@ -392,7 +405,7 @@
       <button class="btn btn-primary" id="next-4" style="display:none; margin: 0 auto;" onclick="goToScreen(5)">التالي →</button>
     </div>
 
-    <!-- 5. المرحلة الرابعة — مواجهة الجاذبية -->
+    <!-- 5. المرحلة الرابعة — واجه الجاذبية -->
     <div id="screen-5" class="screen">
       <h3 style="color: var(--turquoise); margin-bottom: 5px;">🌍 المرحلة الرابعة</h3>
       <p class="subtitle">ما القوة التي تؤثر في الصاروخ وتسحبه باتجاه الأرض؟</p>
@@ -415,7 +428,7 @@
     <!-- 7. شاشة الفوز والنهاية -->
     <div id="screen-7" class="screen">
       <h1 class="title" style="color: var(--gold);">🎉 مهمة ناجحة!</h1>
-      <h2 style="color: var(--turquoise); font-size: 1.3rem; margin-bottom: 10px;">🚀 وصلت إلى المدار!</h2>
+      <h2 style="color: var(--turquoise); font-size: 1.3rem; margin-bottom: 8px;">🚀 وصلت إلى المدار!</h2>
       <p class="subtitle">لقد استخدمت مبادئ الفيزياء لبناء صاروخ وإيصاله إلى المدار.</p>
       
       <div class="summary-card">
@@ -435,7 +448,7 @@
   </div>
 
   <script>
-    // إنشاء خلفية النجوم Dynamic Background
+    // إنشاء خلفية النجوم
     const spaceBg = document.getElementById('spaceBg');
     for (let i = 0; i < 70; i++) {
       const star = document.createElement('div');
@@ -448,7 +461,7 @@
       spaceBg.appendChild(star);
     }
 
-    // بيانات الأسئلة والمراحل
+    // بيانات المراحل
     const stagesData = {
       2: {
         options: [
@@ -457,7 +470,7 @@
           { text: "🟠 كرة", correct: false },
           { text: "🧱 جسم مسطح", correct: false }
         ],
-        successMsg: "✅ اختيار ممتاز! الشكل الانسيابي يساعد على تقليل مقاومة الهواء.",
+        successMsg: "✅ اختيار ممتاز!\nالشكل الانسيابي يساعد على تقليل مقاومة الهواء.",
         onSuccess: () => {
           document.getElementById('partNose').classList.add('part-active');
           document.getElementById('partBody').classList.add('part-active');
@@ -470,7 +483,7 @@
           { text: "💡 مصباح", correct: false },
           { text: "🌡️ حساس حرارة", correct: false }
         ],
-        successMsg: "✅ ممتاز! أصبح للصاروخ نظام دفع.",
+        successMsg: "✅ ممتاز!\nأصبح للصاروخ نظام دفع.",
         onSuccess: () => {
           document.getElementById('partEngine').classList.add('part-active');
         }
@@ -482,9 +495,10 @@
           { text: "قانون نيوتن الثالث", correct: true },
           { text: "قانون الجاذبية", correct: false }
         ],
-        successMsg: "✅ أحسنت! لكل فعل رد فعل مساوٍ له في المقدار ومعاكس له في الاتجاه.",
+        successMsg: "✅ أحسنت!\nلكل فعل رد فعل مساوٍ له في المقدار ومعاكس له في الاتجاه.",
         onSuccess: () => {
           document.getElementById('partFire').style.opacity = '1';
+          document.getElementById('rocketAssembly').style.transform = 'translateY(-15px)';
         }
       },
       5: {
@@ -494,9 +508,10 @@
           { text: "القوة الكهربائية", correct: false },
           { text: "المغناطيسية", correct: false }
         ],
-        successMsg: "✅ صحيح! الجاذبية تجذب الصاروخ نحو الأرض، لذلك يحتاج إلى دفع لمواصلة الصعود.",
+        successMsg: "✅ صحيح!\nالجاذبية تسحب الصاروخ نحو الأرض، لذلك يحتاج الصاروخ إلى دفع مناسب لمواصلة الصعود.",
         onSuccess: () => {
           document.getElementById('gravityArrow').style.display = 'block';
+          document.getElementById('rocketAssembly').style.transform = 'translateY(-35px)';
         }
       },
       6: {
@@ -510,7 +525,7 @@
         onSuccess: () => {
           document.getElementById('gravityArrow').style.display = 'none';
           document.getElementById('orbitRing').style.display = 'block';
-          document.getElementById('rocketAssembly').style.transform = 'scale(0.7) rotate(45deg)';
+          document.getElementById('rocketAssembly').style.transform = 'scale(0.65) rotate(45deg)';
         }
       }
     };
@@ -572,7 +587,7 @@
     }
 
     function resetGame() {
-      // إعادة ضبط جميع العناصر البصرية للصاروخ
+      // إعادة ضبط الصاروخ
       document.getElementById('partNose').classList.remove('part-active');
       document.getElementById('partBody').classList.remove('part-active');
       document.getElementById('partEngine').classList.remove('part-active');
@@ -586,3 +601,4 @@
   </script>
 </body>
 </html>
+
