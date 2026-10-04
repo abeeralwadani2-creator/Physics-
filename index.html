@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🚀 ابنِ صاروخك… وأوصله للمدار | نادي العلوم - مسار الفيزياء</title>
+  <title>🚀 ابنِ صاروخك… وأوصله للمدار | جامعة أم القرى - مسار الفيزياء</title>
   <style>
     :root {
-      --bg-dark: #070a13;
+      --bg-dark: #050811;
       --navy: #0f172a;
       --turquoise: #00f2fe;
-      --turquoise-glow: rgba(0, 242, 254, 0.4);
-      --gold: #f59e0b;
-      --gold-glow: rgba(245, 158, 11, 0.3);
+      --turquoise-glow: rgba(0, 242, 254, 0.5);
+      --gold: #fbbf24;
+      --gold-glow: rgba(251, 191, 36, 0.4);
       --white: #ffffff;
       --correct: #10b981;
       --wrong: #ef4444;
@@ -22,6 +22,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
     }
 
     body {
@@ -35,79 +36,95 @@
       position: relative;
     }
 
-    /* خلفية الفضاء والنجوم */
-    .space-bg {
+    /* خلفية الفضاء والكانفاس للجسيمات */
+    #spaceCanvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at center, #111827 0%, #030712 100%);
       z-index: 0;
     }
 
-    .star {
-      position: absolute;
-      background: #fff;
-      border-radius: 50%;
-      opacity: 0.6;
-      animation: twinkle var(--duration) infinite ease-in-out;
+    /* تأثير اهتزاز الشاشة عند الإطلاق */
+    .shake {
+      animation: screenShake 0.15s infinite alternate;
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.2); }
-    }
-
-    /* كوكب الأرض في الخلفية السفلية */
-    .earth-bottom {
-      position: absolute;
-      bottom: -180px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 300px;
-      background: radial-gradient(circle at top, #1d4ed8 0%, #0f172a 80%);
-      border-radius: 50% 50% 0 0;
-      box-shadow: 0 -10px 40px rgba(0, 242, 254, 0.2);
-      z-index: 1;
-      pointer-events: none;
+    @keyframes screenShake {
+      0% { transform: translate(3px, 3px) rotate(0deg); }
+      50% { transform: translate(-3px, -2px) rotate(0.5deg); }
+      100% { transform: translate(2px, -3px) rotate(-0.5deg); }
     }
 
     /* الحاوية الرئيسية */
     .game-container {
       position: relative;
       z-index: 10;
-      width: 90%;
-      max-width: 680px;
-      background: rgba(15, 23, 42, 0.88);
-      border: 2px solid rgba(0, 242, 254, 0.25);
+      width: 92%;
+      max-width: 720px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 2px solid rgba(0, 242, 254, 0.3);
       border-radius: 24px;
-      padding: 25px 30px;
-      box-shadow: 0 0 40px rgba(0, 242, 254, 0.15);
-      backdrop-filter: blur(12px);
+      padding: 20px 28px;
+      box-shadow: 0 0 50px rgba(0, 242, 254, 0.2);
+      backdrop-filter: blur(15px);
       text-align: center;
     }
 
     /* الترويسة والشعار */
     .header-branding {
-      margin-bottom: 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding-bottom: 8px;
     }
 
-    .uqu-logo {
-      font-size: 1.15rem;
-      font-weight: bold;
+    .uqu-title {
+      text-align: right;
+    }
+
+    .uqu-logo-text {
+      font-size: 1.1rem;
+      font-weight: 800;
       color: var(--gold);
-      letter-spacing: 0.5px;
     }
 
     .club-tag {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       color: var(--turquoise);
-      margin-top: 3px;
       font-weight: 600;
+    }
+
+    /* شريط الإحصائيات الحماسي */
+    .hud-bar {
+      display: flex;
+      justify-content: space-around;
+      background: rgba(3, 7, 18, 0.7);
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 12px;
+    }
+
+    .hud-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hud-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    .hud-value {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--turquoise);
+      font-family: monospace;
     }
 
     /* الشاشات */
@@ -121,112 +138,100 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .title {
-      font-size: 2rem;
-      margin: 8px 0;
+      font-size: 2.1rem;
+      margin: 6px 0;
       color: var(--turquoise);
-      text-shadow: 0 0 10px var(--turquoise-glow);
+      text-shadow: 0 0 12px var(--turquoise-glow);
     }
 
     .subtitle {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-      color: #94a3b8;
+      font-size: 1.05rem;
+      margin-bottom: 15px;
+      color: #cbd5e1;
     }
 
-    /* مسرح بناء وتفاعل الصاروخ Visual Stage */
+    /* مسرح تفاعل وتجميع الصاروخ Visual Stage */
     .visualizer-stage {
       position: relative;
-      height: 180px;
-      background: rgba(3, 7, 18, 0.6);
-      border-radius: 16px;
-      border: 1px dashed rgba(0, 242, 254, 0.3);
-      margin: 15px 0;
+      height: 200px;
+      background: radial-gradient(circle at bottom, #1e293b 0%, #030712 90%);
+      border-radius: 18px;
+      border: 1px dashed rgba(0, 242, 254, 0.4);
+      margin: 12px 0;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
     }
 
+    /* هيكل الصاروخ */
     .rocket-assembly {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: all 0.6s ease;
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* عناصر الصاروخ البصرية */
-    .part-nose {
-      font-size: 2rem;
-      opacity: 0.2;
-      transition: all 0.5s ease;
-      filter: grayscale(1);
-    }
-    .part-body {
-      font-size: 2.2rem;
-      opacity: 0.2;
-      transition: all 0.5s ease;
-      filter: grayscale(1);
-    }
-    .part-engine {
-      font-size: 1.8rem;
-      opacity: 0.2;
-      transition: all 0.5s ease;
-      filter: grayscale(1);
-    }
+    .part-nose { font-size: 2.2rem; opacity: 0.15; transition: 0.4s; filter: grayscale(1); }
+    .part-body { font-size: 2.5rem; opacity: 0.15; transition: 0.4s; filter: grayscale(1); margin: -8px 0; }
+    .part-engine { font-size: 2rem; opacity: 0.15; transition: 0.4s; filter: grayscale(1); }
+    
     .part-fire {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       opacity: 0;
-      transition: all 0.5s ease;
-      animation: flame 0.2s infinite alternate;
+      transition: 0.3s;
+      margin-top: -5px;
     }
 
-    @keyframes flame {
-      0% { transform: scale(0.9); }
-      100% { transform: scale(1.1); }
-    }
+    .part-active { opacity: 1 !important; filter: grayscale(0) !important; }
 
-    .part-active {
+    /* أنيميشن نيران المحرك المتقدمة */
+    .fire-blast {
       opacity: 1 !important;
-      filter: grayscale(0) !important;
+      animation: thrusterBlast 0.1s infinite alternate;
     }
 
-    /* سهم الجاذبية */
+    @keyframes thrusterBlast {
+      0% { transform: scaleY(0.9) scaleX(0.9); filter: drop-shadow(0 0 10px var(--gold)); }
+      100% { transform: scaleY(1.3) scaleX(1.1); filter: drop-shadow(0 0 20px #f97316); }
+    }
+
     .gravity-arrow {
       position: absolute;
-      right: 25px;
-      top: 30px;
-      font-size: 1.2rem;
+      right: 20px;
+      top: 40px;
+      font-size: 1.1rem;
       color: var(--wrong);
       font-weight: bold;
       display: none;
-      animation: pullDown 1s infinite alternate;
+      animation: pullDown 0.8s infinite alternate;
     }
 
     @keyframes pullDown {
       0% { transform: translateY(0); }
-      100% { transform: translateY(10px); }
+      100% { transform: translateY(12px); }
     }
 
-    /* المدار المكتمل */
     .orbit-ring {
       position: absolute;
-      width: 140px;
-      height: 140px;
-      border: 2px dashed var(--turquoise);
+      width: 150px;
+      height: 150px;
+      border: 3px dashed var(--turquoise);
       border-radius: 50%;
       display: none;
-      animation: spin 6s linear infinite;
+      animation: spin 5s linear infinite;
+      box-shadow: 0 0 15px var(--turquoise-glow);
     }
 
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* الخيارات والفيزياء */
+    /* خيارات الأسئلة */
     .options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -234,7 +239,7 @@
       margin: 15px 0;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 520px) {
       .options-grid { grid-template-columns: 1fr; }
     }
 
@@ -242,12 +247,12 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(0, 242, 254, 0.3);
       color: var(--white);
-      padding: 12px 18px;
-      font-size: 1rem;
+      padding: 13px 16px;
+      font-size: 0.98rem;
       font-weight: 600;
       border-radius: 12px;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -255,9 +260,10 @@
     }
 
     .btn:hover {
-      background: rgba(0, 242, 254, 0.15);
+      background: rgba(0, 242, 254, 0.18);
       border-color: var(--turquoise);
       transform: translateY(-2deg);
+      box-shadow: 0 4px 12px var(--turquoise-glow);
     }
 
     .btn-primary {
@@ -268,23 +274,24 @@
       padding: 12px 35px;
       border-radius: 30px;
       font-weight: bold;
-      box-shadow: 0 0 15px var(--turquoise-glow);
+      box-shadow: 0 0 20px var(--turquoise-glow);
       cursor: pointer;
     }
 
     .btn-primary:hover {
       background: linear-gradient(135deg, #38bdf8, #0369a1);
-      transform: scale(1.03);
+      transform: scale(1.04);
     }
 
     .btn.correct {
-      background: rgba(16, 185, 129, 0.2) !important;
+      background: rgba(16, 185, 129, 0.25) !important;
       border-color: var(--correct) !important;
       color: var(--correct) !important;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
     }
 
     .btn.wrong {
-      background: rgba(239, 68, 68, 0.2) !important;
+      background: rgba(239, 68, 68, 0.25) !important;
       border-color: var(--wrong) !important;
       animation: shake 0.4s ease;
     }
@@ -297,20 +304,20 @@
 
     .feedback {
       min-height: 28px;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: bold;
-      margin: 10px 0;
+      margin: 8px 0;
     }
 
     .feedback.correct-text { color: var(--correct); }
     .feedback.wrong-text { color: var(--wrong); }
 
-    /* البطاقة النهائية */
+    /* لوحة الأوائل والشاشات النهائية */
     .summary-card {
       background: rgba(255, 255, 255, 0.03);
       border-radius: 16px;
-      padding: 18px;
-      margin: 15px 0;
+      padding: 16px;
+      margin: 12px 0;
       border: 1px solid var(--gold-glow);
     }
 
@@ -318,46 +325,89 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
-      margin-top: 12px;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     .badge {
-      background: rgba(245, 158, 11, 0.1);
+      background: rgba(251, 191, 36, 0.1);
       border: 1px solid var(--gold);
       color: var(--gold);
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
       font-size: 0.9rem;
+    }
+
+    .leaderboard-table th, .leaderboard-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    .name-input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--turquoise);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+      width: 80%;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
 
-  <!-- الفضاء وكوكب الأرض -->
-  <div class="space-bg" id="spaceBg"></div>
-  <div class="earth-bottom"></div>
+  <!-- كانفاس الفضاء للجسيمات والنجوم والشهب -->
+  <canvas id="spaceCanvas"></canvas>
 
-  <!-- الحاوية الأساسية -->
-  <div class="game-container">
+  <!-- الحاوية الأساسية للعبة -->
+  <div class="game-container" id="mainContainer">
     
-    <!-- الترويسة والشعار -->
+    <!-- الترويسة الشعار -->
     <div class="header-branding">
-      <div class="uqu-logo">جامعة أم القرى</div>
-      <div class="club-tag">نادي العلوم | مسار الفيزياء</div>
+      <div class="uqu-title">
+        <div class="uqu-logo-text">جامعة أم القرى</div>
+        <div class="club-tag">نادي العلوم | مسار الفيزياء</div>
+      </div>
+      <div style="font-size: 1.8rem;">🪐</div>
+    </div>
+
+    <!-- شريط الإحصائيات (HUD) -->
+    <div class="hud-bar" id="hudBar" style="display: none;">
+      <div class="hud-item">
+        <span class="hud-label">النقاط</span>
+        <span class="hud-value" id="scoreVal">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">السرعة</span>
+        <span class="hud-value" id="speedVal">0 km/h</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">الارتفاع</span>
+        <span class="hud-value" id="altVal">0 km</span>
+      </div>
     </div>
 
     <!-- 1. شاشة البداية -->
     <div id="screen-1" class="screen active">
       <h1 class="title">🚀 ابنِ صاروخك</h1>
       <h2 style="color: var(--gold); font-size: 1.3rem; margin-bottom: 6px;">وأوصله إلى المدار!</h2>
-      <p class="subtitle">مهمة تفاعلية في فيزياء الصواريخ</p>
+      <p class="subtitle">مهمة تفاعلية حماسية في فيزياء الصواريخ</p>
       
       <div class="visualizer-stage">
-        <div style="font-size: 3.5rem; opacity: 0.3; filter: grayscale(1);">🚀</div>
+        <div style="font-size: 4rem; opacity: 0.4; filter: grayscale(1);">🚀</div>
       </div>
 
-      <button class="btn btn-primary" onclick="goToScreen(2)" style="margin-top: 10px;">ابدأ المهمة 🚀</button>
+      <button class="btn btn-primary" onclick="startGame()" style="margin-top: 10px;">ابدأ المهمة 🚀</button>
     </div>
 
     <!-- المسرح التفاعلي المشترك للمراحل -->
@@ -369,8 +419,8 @@
         <div class="rocket-assembly" id="rocketAssembly">
           <div class="part-nose" id="partNose">🔺</div>
           <div class="part-body" id="partBody">🚀</div>
-          <div class="part-engine" id="partEngine">⚙️️</div>
-          <div class="part-fire" id="partFire">🔥</div>
+          <div class="part-engine" id="partEngine">⚙️</div>
+          <div class="part-fire" id="partFire">🔥🔥</div>
         </div>
       </div>
     </div>
@@ -395,7 +445,7 @@
       <button class="btn btn-primary" id="next-3" style="display:none; margin: 0 auto;" onclick="goToScreen(4)">التالي →</button>
     </div>
 
-    <!-- 4. المرحلة الثالثة — لماذا يتحرك الصاروخ؟ -->
+    <!-- 4. المرحلة الثالثة — قانون نيوتن الثالث -->
     <div id="screen-4" class="screen">
       <h3 style="color: var(--turquoise); margin-bottom: 5px;">⚛️ المرحلة الثالثة</h3>
       <p class="subtitle">تندفع الغازات إلى الخلف، فيتحرك الصاروخ إلى الأمام. ما القانون الذي يفسر ذلك؟</p>
@@ -405,7 +455,7 @@
       <button class="btn btn-primary" id="next-4" style="display:none; margin: 0 auto;" onclick="goToScreen(5)">التالي →</button>
     </div>
 
-    <!-- 5. المرحلة الرابعة — واجه الجاذبية -->
+    <!-- 5. المرحلة الرابعة — مواجهة الجاذبية -->
     <div id="screen-5" class="screen">
       <h3 style="color: var(--turquoise); margin-bottom: 5px;">🌍 المرحلة الرابعة</h3>
       <p class="subtitle">ما القوة التي تؤثر في الصاروخ وتسحبه باتجاه الأرض؟</p>
@@ -422,24 +472,30 @@
       
       <div class="options-grid" id="opts-6"></div>
       <div class="feedback" id="fb-6"></div>
-      <button class="btn btn-primary" id="next-6" style="display:none; margin: 0 auto;" onclick="goToScreen(7)">التالي →</button>
+      <button class="btn btn-primary" id="next-6" style="display:none; margin: 0 auto;" onclick="triggerFinalLaunch()">انطلاق إلى المدار! 🚀</button>
     </div>
 
     <!-- 7. شاشة الفوز والنهاية -->
     <div id="screen-7" class="screen">
       <h1 class="title" style="color: var(--gold);">🎉 مهمة ناجحة!</h1>
-      <h2 style="color: var(--turquoise); font-size: 1.3rem; margin-bottom: 8px;">🚀 وصلت إلى المدار!</h2>
-      <p class="subtitle">لقد استخدمت مبادئ الفيزياء لبناء صاروخ وإيصاله إلى المدار.</p>
+      <h2 style="color: var(--turquoise); font-size: 1.2rem; margin-bottom: 6px;">🚀 وصلت إلى المدار بنجاح!</h2>
+      <p class="subtitle">استخدمت الفيزياء لبناء صاروخ متكامل وإيصاله للمدار.</p>
       
       <div class="summary-card">
-        <p style="color: #cbd5e1; font-weight: bold;">المبادئ الفيزيائية المستخدمة:</p>
-        <div class="badge-list">
-          <div class="badge">🧩 الشكل الانسيابي</div>
-          <div class="badge">🔥 قوة الدفع</div>
-          <div class="badge">⚛️ قوانين نيوتن</div>
-          <div class="badge">🌍 الجاذبية</div>
-          <div class="badge">🛰️ الحركة المدارية</div>
-        </div>
+        <p style="color: var(--gold); font-weight: bold; margin-bottom: 6px;">سجل اسمك في لوحة المتصدرين:</p>
+        <input type="text" id="playerName" class="name-input" placeholder="اكتب اسمك هنا..." maxlength="15">
+        <button class="btn btn-primary" style="padding: 6px 20px; font-size: 0.95rem; margin: 0 auto 10px auto;" onclick="saveScore()">حفظ النتيجة 🏆</button>
+        
+        <table class="leaderboard-table" id="leaderboardTable">
+          <thead>
+            <tr>
+              <th>الترتيب</th>
+              <th>الاسم</th>
+              <th>النقاط</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
       </div>
 
       <button class="btn btn-primary" onclick="resetGame()">🔄 إعادة المهمة</button>
@@ -448,20 +504,113 @@
   </div>
 
   <script>
-    // إنشاء خلفية النجوم
-    const spaceBg = document.getElementById('spaceBg');
-    for (let i = 0; i < 70; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-      star.style.width = Math.random() * 3 + 'px';
-      star.style.height = star.style.width;
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-      spaceBg.appendChild(star);
+    // --- 1. توليد الأصوات برمجياً (Web Audio API) ---
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioCtx();
     }
 
-    // بيانات المراحل
+    function playSound(type) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'correct') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3); // A5
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } else if (type === 'wrong') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } else if (type === 'launch') {
+        // صوت محرك صاروخ (Noise Simulation)
+        const bufferSize = audioCtx.sampleRate * 2.5;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = buffer;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(100, audioCtx.currentTime);
+        filter.frequency.linearRampToValueAtTime(800, audioCtx.currentTime + 2);
+
+        gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2.5);
+
+        whiteNoise.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+        whiteNoise.start();
+      }
+    }
+
+    // --- 2. محرك الجسيمات للفضاء Dynamic Canvas Background ---
+    const canvas = document.getElementById('spaceCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedY = (Math.random() * 0.5 + 0.1);
+        this.opacity = Math.random();
+      }
+      update() {
+        this.y += this.speedY;
+        if (this.y > height) this.y = 0;
+      }
+      draw() {
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 100; i++) particles.push(new Particle());
+
+    function animateSpace() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateSpace);
+    }
+    animateSpace();
+
+    // --- 3. إدارة اللعبة والإحصائيات ---
+    let score = 0;
+    let speed = 0;
+    let altitude = 0;
+    let startTime = 0;
+
     const stagesData = {
       2: {
         options: [
@@ -470,7 +619,8 @@
           { text: "🟠 كرة", correct: false },
           { text: "🧱 جسم مسطح", correct: false }
         ],
-        successMsg: "✅ اختيار ممتاز!\nالشكل الانسيابي يساعد على تقليل مقاومة الهواء.",
+        successMsg: "✅ اختيار ممتاز! الشكل الانسيابي يقلل مقاومة الهواء.",
+        speedBoost: 1500, altBoost: 50,
         onSuccess: () => {
           document.getElementById('partNose').classList.add('part-active');
           document.getElementById('partBody').classList.add('part-active');
@@ -483,7 +633,8 @@
           { text: "💡 مصباح", correct: false },
           { text: "🌡️ حساس حرارة", correct: false }
         ],
-        successMsg: "✅ ممتاز!\nأصبح للصاروخ نظام دفع.",
+        successMsg: "✅ ممتاز! أصبح للصاروخ نظام دفع قوي.",
+        speedBoost: 4000, altBoost: 150,
         onSuccess: () => {
           document.getElementById('partEngine').classList.add('part-active');
         }
@@ -495,9 +646,11 @@
           { text: "قانون نيوتن الثالث", correct: true },
           { text: "قانون الجاذبية", correct: false }
         ],
-        successMsg: "✅ أحسنت!\nلكل فعل رد فعل مساوٍ له في المقدار ومعاكس له في الاتجاه.",
+        successMsg: "✅ أحسنت! لكل فعل رد فعل مساوٍ له ومعاكس له.",
+        speedBoost: 9000, altBoost: 300,
         onSuccess: () => {
-          document.getElementById('partFire').style.opacity = '1';
+          const fire = document.getElementById('partFire');
+          fire.classList.add('fire-blast');
           document.getElementById('rocketAssembly').style.transform = 'translateY(-15px)';
         }
       },
@@ -508,7 +661,8 @@
           { text: "القوة الكهربائية", correct: false },
           { text: "المغناطيسية", correct: false }
         ],
-        successMsg: "✅ صحيح!\nالجاذبية تسحب الصاروخ نحو الأرض، لذلك يحتاج الصاروخ إلى دفع مناسب لمواصلة الصعود.",
+        successMsg: "✅ صحيح! تكسرنا حاجز الجاذبية بالتسارع المطلوب.",
+        speedBoost: 18000, altBoost: 500,
         onSuccess: () => {
           document.getElementById('gravityArrow').style.display = 'block';
           document.getElementById('rocketAssembly').style.transform = 'translateY(-35px)';
@@ -521,14 +675,30 @@
           { text: "الحركة بشكل عشوائي", correct: false },
           { text: "تقليل السرعة إلى الصفر", correct: false }
         ],
-        successMsg: "✨ ممتاز! دخل الصاروخ في المدار بنجاح!",
+        successMsg: "✨ جاهزون للانطلاق المداري النهائي!",
+        speedBoost: 28000, altBoost: 800,
         onSuccess: () => {
           document.getElementById('gravityArrow').style.display = 'none';
-          document.getElementById('orbitRing').style.display = 'block';
-          document.getElementById('rocketAssembly').style.transform = 'scale(0.65) rotate(45deg)';
         }
       }
     };
+
+    function startGame() {
+      initAudio();
+      score = 0;
+      speed = 0;
+      altitude = 0;
+      startTime = Date.now();
+      updateHUD();
+      document.getElementById('hudBar').style.display = 'flex';
+      goToScreen(2);
+    }
+
+    function updateHUD() {
+      document.getElementById('scoreVal').innerText = score;
+      document.getElementById('speedVal').innerText = speed.toLocaleString() + ' km/h';
+      document.getElementById('altVal').innerText = altitude.toLocaleString() + ' km';
+    }
 
     function goToScreen(screenNum) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -564,16 +734,27 @@
         btn.innerText = opt.text;
         btn.onclick = () => {
           if (opt.correct) {
+            playSound('correct');
             btn.classList.add('correct');
             fbContainer.innerText = stage.successMsg;
             fbContainer.className = 'feedback correct-text';
+            
+            // حساب السرعة والسرعة الزمنية
+            score += 250;
+            speed = stage.speedBoost;
+            altitude = stage.altBoost;
+            updateHUD();
+
             stage.onSuccess();
             disableOptions(optsContainer);
             nextBtn.style.display = 'inline-block';
           } else {
+            playSound('wrong');
             btn.classList.add('wrong');
             fbContainer.innerText = "❌ حاول مرة أخرى!";
             fbContainer.className = 'feedback wrong-text';
+            score = Math.max(0, score - 50);
+            updateHUD();
             setTimeout(() => btn.classList.remove('wrong'), 800);
           }
         };
@@ -586,19 +767,73 @@
       btns.forEach(b => b.style.pointerEvents = 'none');
     }
 
+    // انيميشن الانطلاق النهائي الحماسي
+    function triggerFinalLaunch() {
+      playSound('launch');
+      const container = document.getElementById('mainContainer');
+      const rocket = document.getElementById('rocketAssembly');
+      
+      container.classList.add('shake');
+      rocket.style.transition = 'transform 2s cubic-bezier(0.5, 0, 0.75, 0)';
+      rocket.style.transform = 'translateY(-300px) scale(0.5)';
+
+      setTimeout(() => {
+        container.classList.remove('shake');
+        document.getElementById('orbitRing').style.display = 'block';
+        rocket.style.transition = 'all 1s ease';
+        rocket.style.transform = 'scale(0.6) rotate(45deg)';
+        loadLeaderboard();
+        goToScreen(7);
+      }, 2000);
+    }
+
+    // لوحة الأوائل LocalStorage Leaderboard
+    function saveScore() {
+      const nameInput = document.getElementById('playerName');
+      const name = nameInput.value.trim() || "رائد فضاء";
+      
+      let leaderboard = JSON.parse(localStorage.getItem('rocket_game_lb') || '[]');
+      leaderboard.push({ name: name, score: score });
+      leaderboard.sort((a,b) => b.score - a.score);
+      leaderboard = leaderboard.slice(0, 5); // أفضل 5
+
+      localStorage.setItem('rocket_game_lb', JSON.stringify(leaderboard));
+      loadLeaderboard();
+      nameInput.value = '';
+    }
+
+    function loadLeaderboard() {
+      const leaderboard = JSON.parse(localStorage.getItem('rocket_game_lb') || '[]');
+      const tbody = document.getElementById('leaderboardBody');
+      tbody.innerHTML = '';
+
+      if(leaderboard.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3">لا توجد نتائج مسجلة بعد</td></tr>';
+        return;
+      }
+
+      leaderboard.forEach((item, index) => {
+        const row = `<tr>
+          <td>${index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : index + 1}</td>
+          <td>${item.name}</td>
+          <td>${item.score}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
     function resetGame() {
-      // إعادة ضبط الصاروخ
       document.getElementById('partNose').classList.remove('part-active');
       document.getElementById('partBody').classList.remove('part-active');
       document.getElementById('partEngine').classList.remove('part-active');
-      document.getElementById('partFire').style.opacity = '0';
+      document.getElementById('partFire').className = 'part-fire';
       document.getElementById('gravityArrow').style.display = 'none';
       document.getElementById('orbitRing').style.display = 'none';
       document.getElementById('rocketAssembly').style.transform = 'none';
+      document.getElementById('hudBar').style.display = 'none';
 
       goToScreen(1);
     }
   </script>
 </body>
 </html>
-
