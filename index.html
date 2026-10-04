@@ -36,7 +36,7 @@
       position: relative;
     }
 
-    /* خلفية الفضاء */
+    /* خلفية الفضاء والكانفاس للنجوم والالعاب النارية */
     #spaceCanvas {
       position: absolute;
       top: 0;
@@ -121,7 +121,7 @@
       overflow: hidden;
     }
 
-    /* كوكب الأرض للرفع والمدار */
+    /* كوكب الأرض */
     .earth-globe {
       position: absolute;
       bottom: -160px;
@@ -134,7 +134,7 @@
       z-index: 1;
     }
 
-    /* تجميع عناصر الصاروخ الواقعي */
+    /* تجميع الصاروخ */
     .rocket-assembly-hd {
       position: relative;
       z-index: 2;
@@ -146,7 +146,6 @@
       transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* أجزاء الصاروخ الرسم الواقعي VECTOR SVG/CSS */
     .rocket-part {
       opacity: 0;
       transform: translateY(-15px);
@@ -158,10 +157,8 @@
       transform: translateY(0) !important;
     }
 
-    /* 1. رأس الصاروخ Nose Cone */
     .hd-nose {
-      width: 0;
-      height: 0;
+      width: 0; height: 0;
       border-left: 20px solid transparent;
       border-right: 20px solid transparent;
       border-bottom: 40px solid #e2e8f0;
@@ -169,83 +166,57 @@
       position: relative;
     }
     .hd-nose::after {
-      content: '';
-      position: absolute;
+      content: ''; position: absolute;
       top: 15px; left: -8px;
       width: 16px; height: 4px;
-      background: #ef4444;
-      border-radius: 2px;
+      background: #ef4444; border-radius: 2px;
     }
 
-    /* 2. جسم الصاروخ Main Body */
     .hd-body-container {
       position: relative;
-      width: 40px;
-      height: 85px;
+      width: 40px; height: 85px;
       background: linear-gradient(90deg, #cbd5e1 0%, #ffffff 50%, #94a3b8 100%);
-      border-radius: 2px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      border-radius: 2px; display: flex;
+      flex-direction: column; align-items: center;
       justify-content: space-around;
       box-shadow: inset -3px 0 8px rgba(0,0,0,0.3);
     }
     .hd-window {
-      width: 14px;
-      height: 14px;
-      background: #0284c7;
-      border: 2px solid #e2e8f0;
-      border-radius: 50%;
-      box-shadow: 0 0 6px var(--turquoise);
+      width: 14px; height: 14px;
+      background: #0284c7; border: 2px solid #e2e8f0;
+      border-radius: 50%; box-shadow: 0 0 6px var(--turquoise);
     }
-    .hd-stripe {
-      width: 100%;
-      height: 6px;
-      background: #0284c7;
-    }
+    .hd-stripe { width: 100%; height: 6px; background: #0284c7; }
 
-    /* الأجنحة Fins */
     .hd-fin-left, .hd-fin-right {
-      position: absolute;
-      bottom: 0;
+      position: absolute; bottom: 0;
       width: 0; height: 0;
       border-bottom: 35px solid #dc2626;
     }
     .hd-fin-left { left: -15px; border-left: 15px solid transparent; }
     .hd-fin-right { right: -15px; border-right: 15px solid transparent; }
 
-    /* 3. المحركات Engine Thrusters */
     .hd-engine {
-      width: 28px;
-      height: 18px;
+      width: 28px; height: 18px;
       background: linear-gradient(180deg, #475569, #1e293b);
       clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
       border-bottom: 2px solid #f59e0b;
     }
 
-    /* 4. ألسنة النيران ودخان الإطلاق Engine Flame */
     .hd-flames {
-      position: relative;
-      width: 26px;
-      height: 45px;
-      display: flex;
-      justify-content: center;
-      opacity: 0;
-      transition: all 0.4s ease;
+      position: relative; width: 26px; height: 45px;
+      display: flex; justify-content: center;
+      opacity: 0; transition: all 0.4s ease;
     }
     .flame-core {
-      position: absolute;
-      width: 14px;
-      height: 35px;
+      position: absolute; width: 14px; height: 35px;
       background: linear-gradient(180deg, #ffffff, #fbbf24, #f97316, transparent);
       border-radius: 50% 50% 20% 20%;
       animation: flamePulse 0.1s infinite alternate;
       box-shadow: 0 0 20px #f97316;
     }
     .flame-outer {
-      position: absolute;
-      width: 24px;
-      height: 45px;
+      position: absolute; width: 24px; height: 45px;
       background: linear-gradient(180deg, rgba(249, 115, 22, 0.8), rgba(239, 68, 68, 0.5), transparent);
       border-radius: 50%;
       animation: flamePulse 0.15s infinite alternate-reverse;
@@ -257,24 +228,18 @@
     }
 
     .gravity-arrow {
-      position: absolute;
-      right: 25px; top: 40px;
+      position: absolute; right: 25px; top: 40px;
       font-size: 1.1rem; color: var(--wrong);
       font-weight: bold; display: none;
-      animation: pullDown 0.8s infinite alternate;
-      z-index: 5;
+      animation: pullDown 0.8s infinite alternate; z-index: 5;
     }
     @keyframes pullDown { 0% { transform: translateY(0); } 100% { transform: translateY(12px); } }
 
     .orbit-ring {
-      position: absolute;
-      width: 160px; height: 160px;
-      border: 3px dashed var(--turquoise);
-      border-radius: 50%;
-      display: none;
-      animation: spin 5s linear infinite;
-      box-shadow: 0 0 20px var(--turquoise-glow);
-      z-index: 1;
+      position: absolute; width: 160px; height: 160px;
+      border: 3px dashed var(--turquoise); border-radius: 50%;
+      display: none; animation: spin 5s linear infinite;
+      box-shadow: 0 0 20px var(--turquoise-glow); z-index: 1;
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
@@ -286,10 +251,8 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(0, 242, 254, 0.3);
       color: var(--white);
-      padding: 13px 16px;
-      font-size: 0.98rem; font-weight: 600;
-      border-radius: 12px; cursor: pointer;
-      transition: all 0.2s ease;
+      padding: 13px 16px; font-size: 0.98rem; font-weight: 600;
+      border-radius: 12px; cursor: pointer; transition: all 0.2s ease;
       display: flex; align-items: center; justify-content: center; gap: 8px;
     }
 
@@ -305,8 +268,7 @@
       color: #000; border: none;
       font-size: 1.15rem; padding: 12px 35px;
       border-radius: 30px; font-weight: bold;
-      box-shadow: 0 0 20px var(--turquoise-glow);
-      cursor: pointer;
+      box-shadow: 0 0 20px var(--turquoise-glow); cursor: pointer;
     }
 
     .btn.correct {
@@ -344,13 +306,23 @@
     }
 
     .countdown-overlay {
-      position: absolute;
-      top: 50%; left: 50%;
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       font-size: 4rem; font-weight: 900;
-      color: var(--gold);
-      text-shadow: 0 0 30px var(--gold-glow);
+      color: var(--gold); text-shadow: 0 0 30px var(--gold-glow);
       z-index: 10; display: none;
+    }
+
+    /* أنيميشن إيموجي الفوز الاحتفالي */
+    .victory-emojis {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      animation: bounceWinner 0.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes bounceWinner {
+      0% { transform: scale(0.9) translateY(0); }
+      100% { transform: scale(1.15) translateY(-10px); filter: drop-shadow(0 0 15px var(--gold)); }
     }
   </style>
 </head>
@@ -397,7 +369,6 @@
         <div class="orbit-ring" id="orbitRing"></div>
         <div class="gravity-arrow" id="gravityArrow">↓ الجاذبية</div>
         
-        <!-- الصاروخ المكون من أجزاء دقيقة -->
         <div class="rocket-assembly-hd" id="rocketAssembly">
           <div class="rocket-part hd-nose" id="partNose"></div>
           <div class="rocket-part hd-body-container" id="partBody">
@@ -462,6 +433,7 @@
 
     <!-- Screen 7: Finish -->
     <div id="screen-7" class="screen">
+      <div class="victory-emojis">🥳 🎊 🏆 👑 🥳</div>
       <h1 class="title" style="color: var(--gold);">🎉 مهمة ناجحة!</h1>
       <h2 style="color: var(--turquoise); font-size: 1.2rem; margin-bottom: 6px;">🚀 وصلت إلى المدار بنجاح!</h2>
       <p class="subtitle">استخدمت الفيزياء لبناء صاروخ متكامل وإيصاله للمدار.</p>
@@ -485,7 +457,7 @@
   </div>
 
   <script>
-    // Audio Context
+    // Audio Context & Web Audio API Engine
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     let audioCtx;
 
@@ -493,11 +465,11 @@
 
     function playSound(type) {
       if (!audioCtx) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.connect(gain); gain.connect(audioCtx.destination);
 
       if (type === 'correct') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
@@ -505,9 +477,12 @@
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
         osc.start(); osc.stop(audioCtx.currentTime + 0.3);
       } else if (type === 'wrong') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(220, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.3);
+        osc.frequency.exponential        osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.3);
         gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
         osc.start(); osc.stop(audioCtx.currentTime + 0.3);
@@ -516,27 +491,41 @@
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const output = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
-        
         const whiteNoise = audioCtx.createBufferSource();
         whiteNoise.buffer = buffer;
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(80, audioCtx.currentTime);
         filter.frequency.linearRampToValueAtTime(900, audioCtx.currentTime + 2.5);
-
         gain.gain.setValueAtTime(0.6, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 3);
-
         whiteNoise.connect(filter); filter.connect(gain);
         gain.connect(audioCtx.destination);
         whiteNoise.start();
+      } else if (type === 'victory') {
+        // نغمة فوز موسيقية مبهجة (Victory Fanfare)
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.type = 'triangle';
+          osc.frequency.value = freq;
+          const startTime = audioCtx.currentTime + idx * 0.15;
+          const duration = idx === 3 ? 0.8 : 0.2;
+          gain.gain.setValueAtTime(0.4, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+          osc.start(startTime);
+          osc.stop(startTime + duration);
+        });
       }
     }
 
-    // Space Canvas
+    // Space & Confetti Canvas
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
-    let width, height, particles = [];
+    let width, height, particles = [], confetti = [];
+    let isVictoryMode = false;
 
     function resizeCanvas() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
     window.addEventListener('resize', resizeCanvas);
@@ -548,8 +537,63 @@
       update() { this.y += this.speedY; if (this.y > height) this.y = 0; }
       draw() { ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
     }
+
+    // جسيمات النجوم المتساقطة عند الفوز (Falling Victory Stars & Confetti)
+    class ConfettiParticle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = -20;
+        this.size = Math.random() * 8 + 4;
+        this.speedY = Math.random() * 3 + 2;
+        this.speedX = Math.random() * 2 - 1;
+        this.color = ['#f59e0b', '#00f2fe', '#10b981', '#ec4899', '#3b82f6', '#ffffff'][Math.floor(Math.random() * 6)];
+        this.rotation = Math.random() * 360;
+        this.rotSpeed = Math.random() * 10 - 5;
+        this.isStar = Math.random() > 0.4;
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        this.rotation += this.rotSpeed;
+        if (this.y > height) {
+          this.y = -10;
+          this.x = Math.random() * width;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.fillStyle = this.color;
+        if (this.isStar) {
+          // رسم نجمة
+          ctx.beginPath();
+          for (let i = 0; i < 5; i++) {
+            ctx.lineTo(Math.cos((18 + i * 72) * Math.PI / 180) * this.size, -Math.sin((18 + i * 72) * Math.PI / 180) * this.size);
+            ctx.lineTo(Math.cos((54 + i * 72) * Math.PI / 180) * (this.size / 2), -Math.sin((54 + i * 72) * Math.PI / 180) * (this.size / 2));
+          }
+          ctx.closePath();
+          ctx.fill();
+        } else {
+          ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+        }
+        ctx.restore();
+      }
+    }
+
     for (let i = 0; i < 100; i++) particles.push(new Particle());
-    function animateSpace() { ctx.clearRect(0, 0, width, height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateSpace); }
+
+    function animateSpace() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      
+      if (isVictoryMode) {
+        if (confetti.length < 120) confetti.push(new ConfettiParticle());
+        confetti.forEach(c => { c.update(); c.draw(); });
+      }
+
+      requestAnimationFrame(animateSpace);
+    }
     animateSpace();
 
     // Game Variables
@@ -628,6 +672,8 @@
 
     function startGame() {
       initAudio();
+      isVictoryMode = false;
+      confetti = [];
       score = 0; speed = 0; altitude = 0;
       updateHUD();
       document.getElementById('hudBar').style.display = 'flex';
@@ -693,7 +739,6 @@
       container.querySelectorAll('.btn').forEach(b => b.style.pointerEvents = 'none');
     }
 
-    // انيميشن العد التنازلي والانطلاق السينمائي
     function triggerFinalLaunch() {
       const countdown = document.getElementById('countdownOverlay');
       const container = document.getElementById('mainContainer');
@@ -724,6 +769,10 @@
               document.getElementById('orbitRing').style.display = 'block';
               rocket.style.transition = 'all 1s ease';
               rocket.style.transform = 'scale(0.55) rotate(45deg)';
+              
+              // تفعيل وضع الفوز والصوت الاحتفالي
+              isVictoryMode = true;
+              playSound('victory');
               loadLeaderboard();
               goToScreen(7);
             }, 2200);
@@ -757,6 +806,8 @@
     }
 
     function resetGame() {
+      isVictoryMode = false;
+      confetti = [];
       document.getElementById('partNose').classList.remove('active');
       document.getElementById('partBody').classList.remove('active');
       document.getElementById('partEngine').classList.remove('active');
